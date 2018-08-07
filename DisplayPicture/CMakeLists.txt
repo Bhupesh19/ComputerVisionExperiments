@@ -1,6 +1,11 @@
 cmake_minimum_required( VERSION 2.8 )
 project( Display )
-find_package( OpenCV REQUIRED)
-message(STATUS ${PROJECT_NAME})
+add_definitions(-std=c++11)
+set(CMAKE_CXX_FLAGS "-std=c++14 ${CMAKE_CXX_FLAGS}")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -fsanitize=address -fno-omit-frame-pointer -fno-optimize-sibling-calls" CACHE STRING "" FORCE)
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -g -fsanitize=address -fno-omit-frame-pointer -fno-optimize-sibling-calls" CACHE STRING "" FORCE)
+find_package( OpenCV 3.4.2 PATHS /opt/opencv-3.4.2/cmake/) # To avoid compiler using opencv library installed be default during ROS installation
+message(STATUS ${OpenCV_LIBS} )
+message(STATUS ${OpenCV_INCLUDE_DIRS} )
 add_executable( ${PROJECT_NAME} main.cpp )
 target_link_libraries( ${PROJECT_NAME} ${OpenCV_LIBS} )
